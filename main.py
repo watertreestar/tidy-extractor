@@ -11,7 +11,7 @@ def print_hi(name):
 
 if __name__ == '__main__':
     print_hi('tidy-extract')
-    chrome_book_mark.start("/Users/young/Desktop/bookmarks_2021_6_18.html")
+    chrome_book_mark.start("/Users/young/Desktop/bookmarks_2021_6_18.html","https://gitee.com")
 
 
 
