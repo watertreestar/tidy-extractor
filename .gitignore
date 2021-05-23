@@ -3,3 +3,4 @@ file/
 *.log
 .DS_store
 .idea/
+__pycache__/
