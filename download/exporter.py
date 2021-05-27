@@ -1,6 +1,12 @@
 """
 Different Exporter
 """
+# !/usr/bin/python
+# -*- coding:utf-8 -*-
+import os.path
+
+import pdfkit
+import html2text
 
 
 class BaseExporter:
@@ -51,14 +57,37 @@ class BaseExporter:
         """
         pass
 
+    def export(self, export_path, file_name, content):
+        """
+        Export file
+        :return:
+        """
+        self.do_export(export_path, file_name, content)
+
+    def do_export(self,export_path, file_name, content):
+        """
+        Internal export method
+        :return:
+        """
+        pass
+
 
 class PDFExporter(BaseExporter):
     """
     Export content as a PDF file
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, pdfkit_path):
+        self.pdfkit_path = pdfkit_path
+
+    def do_export(self,export_path, file_name, content):
+        config = pdfkit.configuration(wkhtmltopdf=self.pdfkit_path)
+        options = {
+            'page-size': 'Letter',
+            'encoding': 'UTF-8',
+            'custom-header': [('Accept-Encoding', 'gzip')]
+        }
+        pdfkit.from_string(content, "{}.pdf".format(file_name), configuration=config, options=options)
 
 
 class MarkdownExporter(BaseExporter):
@@ -69,11 +98,23 @@ class MarkdownExporter(BaseExporter):
     def __init__(self):
         pass
 
+    def do_export(self, export_path, file_name, content):
+        md_text = ""
+        md_text += html2text.html2text(content)
+        file_path = os.path.join(export_path,file_name)
+        self.write_file(file_path)
+
 
 class HTMLExporter(BaseExporter):
     """
     Export content as html file
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, auto_complete):
+        self.auto_complete = auto_complete
+
+    def do_export(self,export_path, file_name, content):
+        html_text = ""
+        html_text += content
+        file_path = os.path.join(export_path, file_name)
+        self.write_file(file_path, html_text)
