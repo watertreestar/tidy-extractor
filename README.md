@@ -5,4 +5,4 @@
 # 已经实现的
 
 - [x] bilibili视频
-- [x] 拉钩教育专栏# tidy-extractor
+- [x] 拉钩教育专栏
