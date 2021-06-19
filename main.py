@@ -1,12 +1,8 @@
 """
     main script
 """
-import logging
 from launcher import chrome_book_mark
 
-from tools.logger import get_logger
-
-logger = get_logger('app',log_path='/Users/young/PycharmProjects/tidy-extractor/logs/app.log',log_level=logging.INFO)
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.

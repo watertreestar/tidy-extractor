@@ -42,7 +42,7 @@ def _get_log_formatter(json_format: bool = False) -> Formatter:
 
 
 def _get_file_handler(
-    log_path: str = "main.log", log_level: int = logging.DEBUG, json_format: bool = False
+        log_path: str = "main.log", log_level: int = logging.DEBUG, json_format: bool = False
 ) -> RotatingFileHandler:
     _tmp_path = os.path.dirname(os.path.abspath(__file__))
     _tmp_path = os.path.join(_tmp_path, log_path)
@@ -84,7 +84,7 @@ class QueueListenerHandler(QueueHandler):
 
 
 def configure_log_listener(
-    console: bool = True, log_path: str = "./main.log", json_format: bool = False
+        console: bool = True, log_path: str = "./main.log", json_format: bool = False
 ) -> QueueListener:
     """
     Configure log queue listener to log into file and console.
@@ -129,7 +129,8 @@ def configure_loggers(conf_yaml: str = "logging.yml") -> None:
     logging.config.dictConfig(log_conf)
 
 
-def get_logger(name: str = 'default', log_path: str = './logs/default.log', log_level: int = logging.DEBUG, json_format: bool = False) -> logging.Logger:
+def get_logger(name: str = 'default', log_path: str = './logs/default.log', log_level: int = logging.DEBUG,
+               json_format: bool = False) -> logging.Logger:
     """
     Simple logging wrapper that returns logger
     configured to log into file and console.
@@ -152,3 +153,6 @@ def get_logger(name: str = 'default', log_path: str = './logs/default.log', log_
     configure_log_listener(True, log_path, json_format)
 
     return logger_create
+
+
+logger = get_logger('app', log_path='/Users/young/PycharmProjects/tidy-extractor/logs/app.log', log_level=logging.INFO)
