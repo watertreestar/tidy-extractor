@@ -2,10 +2,7 @@
 # coding=utf-8
 
 import pymysql
-
-import logging
-
-from main import logger
+from tools.logger import logger
 
 
 class MySQLExporter:
@@ -21,7 +18,7 @@ class MySQLExporter:
         :param pwd:
         """
         logger.info("Starting create database connection.........")
-        self.conn = pymysql.connect(host=host,port=port, user=user, passwd=passwd, db=db)
+        self.conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db)
         self.cur = self.conn.cursor()
         logger.info("Finished creating database connection..........")
 
@@ -62,7 +59,9 @@ class MySQLExporter:
             logger.exception("Exception occurs while export to mysql db,%s", e)
 
     def exist(self, table, cond):
-        pass
-
-
-
+        sql = "select count(*) from " + table + " where " + cond[0] + "='" + cond[1] + "'"
+        self.cur.execute(sql)
+        result = self.cur.fetchall()
+        if result and result[0][0] == 1:
+            return True
+        return False

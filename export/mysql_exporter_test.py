@@ -1,6 +1,6 @@
 import unittest
 
-from export.msyql_export import MySQLExporter
+from export.mysql_exporter import MySQLExporter
 
 
 class MySQLExporterTest(unittest.TestCase):
@@ -9,3 +9,7 @@ class MySQLExporterTest(unittest.TestCase):
 
     def test_export(self):
         self.exporter.export("chrome_book_mark",[('url','https://github.com'),('title','github'),('content','fafafafafafafafa')])
+
+    def test_exist(self):
+        exist = self.exporter.exist("chrome_book_mark", ("url","https://github.com/genli9/abstract-component"))
+        print(exist)
