@@ -19,7 +19,7 @@ import os, sys, threading
 import threadpool
 
 import imageio
-# imageio.plugins.ffmpeg.download()
+# imageio.plugins.ffmpeg.export()
 
 # 访问API地址
 def get_play_list(start_url, cid, quality):

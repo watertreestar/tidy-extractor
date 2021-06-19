@@ -118,3 +118,11 @@ class HTMLExporter(BaseExporter):
         html_text += content
         file_path = os.path.join(export_path, file_name)
         self.write_file(file_path, html_text)
+
+
+class MySQLHTMLExporter(BaseExporter):
+    """
+    Export html content to MySQL database
+    """
+    def do_export(self,export_path, file_name, content):
+        pass
