@@ -13,10 +13,15 @@ PROXIES = {
 }
 
 
-def start(path):
-    mysql_exporter = MySQLExporter('localhost', 62723, 'root', 'root', '123456')
+def start(path,url_prefix,use_proxy = False):
+    mysql_exporter = MySQLExporter('localhost', 3306, 'root', 'root', '123456')
 
-    gbm = GoogleBookMark(path, "https://github.com")
+    proxies_to_use = None
+    if use_proxy:
+        logger.info("Use default proxy.")
+        proxies_to_use = PROXIES
+
+    gbm = GoogleBookMark(path, url_prefix)
     github_links = gbm.parse()
     logger.info("Find %s link", str(len(github_links)))
     failed_links = []
@@ -26,7 +31,7 @@ def start(path):
             continue
         try:
             logger.info("Extract url [%s]", link)
-            html_text = requests.get(link, proxies=PROXIES).text
+            html_text = requests.get(link, proxies=proxies_to_use).text
             title = re.findall(r"<title.*?>(.+?)</title>", html_text)[0]
             if len(title) > 200:
                 title = title[0:200]
